@@ -13,6 +13,7 @@ Sine-Cosine Algorithm vs Bat Algorithm for DG placement and sizing on the IEEE 9
 The enhancement of electricity distribution is a crucial factor in supporting sustainable development and reducing energy access inequality. To ensure the reliability and stability of energy systems, the integration of distributed generation (DG) has a significant role. Numerous studies have explored optimal DG placement using metaheuristic methods. The study evaluated the performance of both algorithms based on key indicators, including voltage profile improvement and power loss reduction, under normal load conditions and under a 10% load increase to simulate future demand growth. The methods employed were the sine-cosine algorithm (SCA) and the bat algorithm (BA). By comparing these two methods, this study aims to optimize the placement and sizing of DG units, with a case study based on the IEEE 9 bus system configuration. Load flow analysis was performed using Electric Transient Analysis Program (ETAP) software to validate the effectiveness of optimized DG placement under various scenarios. Key performance indicators, namely losses reduction and improvement of voltage profile, were evaluated to determine the relative strengths of each algorithm. The results show that both SCA and BA are effective in optimizing DG implementation. Specifically, SCA achieved reductions in active power losses by up to 85% and reactive power losses by 93%, outperforming BA in certain scenarios. Both algorithms enhance system reliability and stability. These findings highlight the potential of metaheuristic algorithms to address the challenges of modern energy systems and contribute to the broader goal of developing sustainable power systems.
 
 
+
 ## Proposed method
 
 Two metaheuristics are applied to the same DG siting-and-sizing problem and compared. A candidate is a pair (bus, DG capacity); the objective is total active-power loss, and ETAP load flow validates each candidate at normal load and at a 10% load increase. SCA updates every candidate with a sine or cosine step around the best solution. BA updates a velocity from a frequency, then adds a local random walk controlled by loudness and pulse rate.
@@ -85,6 +86,8 @@ Loudness decays so later iterations make smaller local moves, while the pulse ra
 ### Implementation note
 
 The notebooks optimise a proxy built from line impedance, length and transformer MVA, with DG capacity reducing the loss contribution of branches connected to the DG bus. The paper's loss values and voltage profiles come from ETAP load flow. Use the notebooks for the optimisation logic, not as a replacement for the ETAP validation.
+### Reported result
+Across the tested DG placements SCA reduces active-power losses by up to 85% and reactive-power losses by 93%; BA reaches lower reductions. Both improve the voltage profile at normal load and at the 10% load increase.
 
 ## Contents
 
@@ -101,6 +104,7 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 | File | Columns |
 |---|---|
 | `dg9bus.xlsx` | (format: see code) |
+
 
 ## Requirements
 
