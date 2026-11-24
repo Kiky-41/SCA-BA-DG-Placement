@@ -30,20 +30,14 @@ Line losses are also written as $P_{\text{loss}}=I^2R$.
 
 ### Notation
 
-| Symbol | Meaning | Unit |
-|---|---|---|
-| $N$ | number of buses | – |
-| $V_i,\theta_i$ | voltage magnitude and angle at bus $i$ | p.u., rad |
-| $G_{ij}$ | real part of the bus admittance matrix | p.u. |
-| $I,R$ | line current and resistance | A, Ω |
-| $P_{\text{loss}}$ | total active-power loss | MW |
-| $V_{\min},V_{\max}$ | voltage limits | p.u. |
-| $P_{DG,i}$ | DG capacity at bus $i$ | MW |
-| $\mathbf{X}_i$ | position of agent/bat $i$ | – |
-| $\mathbf{X}^{\ast}$ | best position | – |
-| $r_1$–$r_4$ | uniform random numbers | – |
-| $a$ | SCA control parameter, 2 → 0 | – |
-| $t,T$ | iteration and iteration cap | – |
+| Symbol | Meaning | Symbol | Meaning |
+|---|---|---|---|
+| $N$ | number of buses | $P_{DG,i}$ | DG capacity at bus $i$ (MW) |
+| $V_i,\theta_i$ | voltage magnitude and angle at bus $i$ (p.u., rad) | $\mathbf{X}_i$ | position of agent/bat $i$ |
+| $G_{ij}$ | real part of the bus admittance matrix (p.u.) | $\mathbf{X}^{\ast}$ | best position |
+| $I,R$ | line current and resistance (A, Ω) | $r_1$–$r_4$ | uniform random numbers |
+| $P_{\text{loss}}$ | total active-power loss (MW) | $a$ | SCA control parameter, 2 → 0 |
+| $V_{\min},V_{\max}$ | voltage limits (p.u.) | $t,T$ | iteration and iteration cap |
 
 ### Sine–Cosine Algorithm
 
