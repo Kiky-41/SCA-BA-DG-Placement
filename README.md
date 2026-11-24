@@ -108,13 +108,35 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 
 ## Results
 
-| Metric | Value |
-|---|---|
-| Active-power loss reduction (SCA) | up to 85% |
-| Reactive-power loss reduction (SCA) | up to 93% |
-| Agents / iterations | 10 / 100 |
-| DG capacity range | 0-500 kW |
-| Validation | ETAP load flow at normal load and 10% load increase |
+### Scenario 1, IEEE 9-bus, no DG
+
+| Bus | Voltage (p.u.) | Condition |
+|---|---|---|
+| Bus 1 | 1.0000 | nominal |
+| Bus 2 | 1.0400 | overvoltage |
+| Bus 3 | 1.0200 | above nominal |
+| Bus 4 | 0.9300 | undervoltage |
+| Bus 5 | 0.9500 | undervoltage |
+| Bus 6 | 0.9500 | undervoltage |
+| Bus 7 | 1.0100 | above nominal |
+| Bus 8 | 1.0100 | above nominal |
+| Bus 9 | 1.0000 | nominal |
+
+### Scenario 2, normal load with DG, both pick bus 6
+
+| Algorithm | DG size (kW) | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction |
+|---|---|---|---|---|---|
+| Base, no DG | - | 34.70 | 31.16 | - | - |
+| SCA | 250 | 5.35 | 2.06 | 85% | 93% |
+| BA | 299 | 30.96 | 11.98 | 11% | 61% |
+
+### Scenario 3, load +10% with DG
+
+| Algorithm | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction | Voltage note |
+|---|---|---|---|---|---|
+| Base, load +10% | 34.70 | 31.16 | - | - | - |
+| SCA | 30.80 | 11.88 | 11% | 62% | stays within limits |
+| BA | 34.70 | 29.01 | 0% | 6.9% | bus 4 and bus 5 fall to 0.93 and 0.94 p.u. |
 
 
 ## Requirements
