@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this code or results, you must cite the paper below (CC BY 4.0 attribution requirement)."
+title: "SCA-BA-DG-Placement: Comparison of Sine-Cosine and Bat Algorithm for Distributed Generation Placement"
+type: software
+license: CC-BY-4.0
+repository-code: "https://github.com/Kiky-41/SCA-BA-DG-Placement"
+authors:
+  - family-names: "Yustika"
+    given-names: "Lindiasari Martha"
+  - family-names: "Raharjo"
+    given-names: "Jangkung"
+  - family-names: "Ikhsan"
+    given-names: "Rifki Rahman Nur"
+  - family-names: "Wijaya"
+    given-names: "I Gede Putu Oka Indra"
+preferred-citation:
+  type: article
+  title: "Comparison of Sine-Cosine and Bat Algorithm for Distributed Generation Placement"
+  authors:
+    - family-names: "Yustika"
+      given-names: "Lindiasari Martha"
+    - family-names: "Raharjo"
+      given-names: "Jangkung"
+    - family-names: "Ikhsan"
+      given-names: "Rifki Rahman Nur"
+    - family-names: "Wijaya"
+      given-names: "I Gede Putu Oka Indra"
+  journal: "Jurnal Nasional Teknik Elektro dan Teknologi Informasi"
+  year: 2025
+  doi: 10.22146/jnteti.v14i3.19191
