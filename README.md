@@ -39,7 +39,7 @@ Line losses are also written as $P_{\text{loss}}=I^2R$.
 | $V_{\min},V_{\max}$ | voltage limits | p.u. |
 | $P_{DG,i}$ | DG capacity at bus $i$ | MW |
 | $\mathbf{X}_i$ | position of agent/bat $i$ | – |
-| $\mathbf{X}^{*}$ | best position | – |
+| $\mathbf{X}^{\ast}$ | best position | – |
 | $r_1$–$r_4$ | uniform random numbers | – |
 | $a$ | SCA control parameter, 2 → 0 | – |
 | $t,T$ | iteration and iteration cap | – |
@@ -54,8 +54,8 @@ Each coordinate moves with either a sine or a cosine term:
 
 $$X_i^{t+1}=
 \begin{cases}
-X_i^{t}+r_1\sin(r_2)\left|r_3X^{*}-X_i^{t}\right|, & r_4<0.5,\\
-X_i^{t}+r_1\cos(r_2)\left|r_3X^{*}-X_i^{t}\right|, & r_4\ge0.5,
+X_i^{t}+r_1\sin(r_2)\left|r_3X^{\ast}-X_i^{t}\right|, & r_4<0.5,\\
+X_i^{t}+r_1\cos(r_2)\left|r_3X^{\ast}-X_i^{t}\right|, & r_4\ge0.5,
 \end{cases}$$
 
 with $r_2\sim\mathcal{U}(0,2\pi)$, $r_3\sim\mathcal{U}(0,2)$ and $r_4\sim\mathcal{U}(0,1)$. The sine and cosine branches give the search two different approach shapes, and the shrinking $r_1$ reduces the step as the run proceeds.
@@ -64,7 +64,7 @@ with $r_2\sim\mathcal{U}(0,2\pi)$, $r_3\sim\mathcal{U}(0,2)$ and $r_4\sim\mathca
 
 Each bat has a frequency, a velocity and a position:
 
-$$f_i=f_{\min}+(f_{\max}-f_{\min})\beta,\qquad \mathbf{v}_i^{t}=\mathbf{v}_i^{t-1}+\left(\mathbf{x}_i^{t-1}-\mathbf{x}^{*}\right)f_i,\qquad \mathbf{x}_i^{t}=\mathbf{x}_i^{t-1}+\mathbf{v}_i^{t},$$
+$$f_i=f_{\min}+(f_{\max}-f_{\min})\beta,\qquad \mathbf{v}_i^{t}=\mathbf{v}_i^{t-1}+\left(\mathbf{x}_i^{t-1}-\mathbf{x}^{\ast}\right)f_i,\qquad \mathbf{x}_i^{t}=\mathbf{x}_i^{t-1}+\mathbf{v}_i^{t},$$
 
 where $\beta\sim\mathcal{U}(0,1)$. The frequency scales the pull toward the best bat, and the velocity carries momentum from the previous iteration.
 
