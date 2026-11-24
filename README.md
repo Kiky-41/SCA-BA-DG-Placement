@@ -15,45 +15,76 @@ The enhancement of electricity distribution is a crucial factor in supporting su
 
 ## Proposed method
 
-Two metaheuristics are applied to the same DG siting-and-sizing problem and compared. A candidate is a pair (bus, DG capacity); the objective is total active-power loss, and ETAP load flow validates each candidate at normal load and at a 10% load increase.
+Two metaheuristics are applied to the same DG siting-and-sizing problem and compared. A candidate is a pair (bus, DG capacity); the objective is total active-power loss, and ETAP load flow validates each candidate at normal load and at a 10% load increase. SCA updates every candidate with a sine or cosine step around the best solution. BA updates a velocity from a frequency, then adds a local random walk controlled by loudness and pulse rate.
 
 ### Problem formulation
 
-$$P_{\text{loss}}=\sum_{i=1}^{N}\sum_{j=1}^{N}G_{ij}\left(V_i^2+V_j^2-2V_iV_j\cos(\theta_i-\theta_j)\right)$$
+$$P_{\text{loss}}=\sum_{i=1}^{N}\sum_{j=1}^{N}G_{ij}\left(V_i^2+V_j^2-2V_iV_j\cos(\theta_i-\theta_j)\right),$$
 
 subject to
 
-$$V_{\min}\le V_i\le V_{\max},\qquad \sum P_{\text{gen}}=\sum P_{\text{load}}+P_{\text{loss}},\qquad P_{DG,\min}\le P_{DG,i}\le P_{DG,\max}$$
+$$V_{\min}\le V_i\le V_{\max},\qquad \sum P_{\text{gen}}=\sum P_{\text{load}}+P_{\text{loss}},\qquad P_{DG,\min}\le P_{DG,i}\le P_{DG,\max}.$$
 
 Line losses are also written as $P_{\text{loss}}=I^2R$.
 
+### Notation
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| $N$ | number of buses | – |
+| $V_i,\theta_i$ | voltage magnitude and angle at bus $i$ | p.u., rad |
+| $G_{ij}$ | real part of the bus admittance matrix | p.u. |
+| $I,R$ | line current and resistance | A, Ω |
+| $P_{\text{loss}}$ | total active-power loss | MW |
+| $V_{\min},V_{\max}$ | voltage limits | p.u. |
+| $P_{DG,i}$ | DG capacity at bus $i$ | MW |
+| $\mathbf{X}_i$ | position of agent/bat $i$ | – |
+| $\mathbf{X}^{*}$ | best position | – |
+| $r_1$–$r_4$ | uniform random numbers | – |
+| $a$ | SCA control parameter, 2 → 0 | – |
+| $t,T$ | iteration and iteration cap | – |
+
 ### Sine–Cosine Algorithm
 
-$$r_1=a-t\frac{a}{T},\qquad a=2$$
+The control parameter falls linearly:
+
+$$r_1=a-t\frac{a}{T},\qquad a=2.$$
+
+Each coordinate moves with either a sine or a cosine term:
 
 $$X_i^{t+1}=
 \begin{cases}
-X_i^{t}+r_1\sin(r_2)\left|r_3X^*-X_i^{t}\right|, & r_4<0.5\\[4pt]
-X_i^{t}+r_1\cos(r_2)\left|r_3X^*-X_i^{t}\right|, & r_4\ge0.5
+X_i^{t}+r_1\sin(r_2)\left|r_3X^{*}-X_i^{t}\right|, & r_4<0.5,\\[4pt]
+X_i^{t}+r_1\cos(r_2)\left|r_3X^{*}-X_i^{t}\right|, & r_4\ge0.5,
 \end{cases}$$
 
-with $r_2\sim\mathcal{U}(0,2\pi)$, $r_3\sim\mathcal{U}(0,2)$, $r_4\sim\mathcal{U}(0,1)$.
+with $r_2\sim\mathcal{U}(0,2\pi)$, $r_3\sim\mathcal{U}(0,2)$ and $r_4\sim\mathcal{U}(0,1)$. The sine and cosine branches give the search two different approach shapes, and the shrinking $r_1$ reduces the step as the run proceeds.
 
 ### Bat Algorithm
 
-$$f_i=f_{\min}+(f_{\max}-f_{\min})\beta,\qquad \mathbf{v}_i^{t}=\mathbf{v}_i^{t-1}+\left(\mathbf{x}_i^{t-1}-\mathbf{x}^*\right)f_i,\qquad \mathbf{x}_i^{t}=\mathbf{x}_i^{t-1}+\mathbf{v}_i^{t}$$
+Each bat has a frequency, a velocity and a position:
 
-Local search around the best:
+$$f_i=f_{\min}+(f_{\max}-f_{\min})\beta,\qquad \mathbf{v}_i^{t}=\mathbf{v}_i^{t-1}+\left(\mathbf{x}_i^{t-1}-\mathbf{x}^{*}\right)f_i,\qquad \mathbf{x}_i^{t}=\mathbf{x}_i^{t-1}+\mathbf{v}_i^{t},$$
 
-$$\mathbf{x}_{\text{new}}=\mathbf{x}_{\text{old}}+\epsilon\bar A^{t},\qquad \epsilon\sim\mathcal{U}(-1,1)$$
+where $\beta\sim\mathcal{U}(0,1)$. The frequency scales the pull toward the best bat, and the velocity carries momentum from the previous iteration.
 
-Loudness and pulse rate:
+A local random walk is applied around the current best:
 
-$$A_i^{t+1}=\alpha A_i^{t},\qquad r_i^{t+1}=r_i^{0}\left(1-e^{-\gamma t}\right)$$
+$$\mathbf{x}_{\text{new}}=\mathbf{x}_{\text{old}}+\epsilon\bar A^{t},\qquad \epsilon\sim\mathcal{U}(-1,1),$$
+
+where $\bar A^{t}$ is the mean loudness. Loudness and pulse rate are then updated:
+
+$$A_i^{t+1}=\alpha A_i^{t},\qquad r_i^{t+1}=r_i^{0}\left(1-e^{-\gamma t}\right).$$
+
+Loudness decays so later iterations make smaller local moves, while the pulse rate rises so the bat relies more on the current best.
 
 ### Settings and reported outcome
 
-10 agents, 100 iterations, bus index clipped to the bus range and DG capacity to 0–500 kW. SCA reduces active-power losses by up to 85% and reactive-power losses by 93%; both algorithms improve the voltage profile, with SCA ahead in several scenarios.
+10 agents, 100 iterations; the bus index is clipped to the bus range and the DG capacity to 0–500 kW. SCA reduces active-power losses by up to 85% and reactive-power losses by 93%, and both algorithms improve the voltage profile, with SCA ahead in several scenarios.
+
+### Implementation note
+
+The notebooks optimise a proxy built from line impedance, length and transformer MVA, with DG capacity reducing the loss contribution of branches connected to the DG bus. The paper's loss values and voltage profiles come from ETAP load flow. Use the notebooks for the optimisation logic, not as a replacement for the ETAP validation.
 
 ## Contents
 
