@@ -110,17 +110,10 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 
 ### Scenario 1, IEEE 9-bus, no DG
 
-| Bus | Voltage (p.u.) | Condition |
-|---|---|---|
-| Bus 1 | 1.0000 | nominal |
-| Bus 2 | 1.0400 | overvoltage |
-| Bus 3 | 1.0200 | above nominal |
-| Bus 4 | 0.9300 | undervoltage |
-| Bus 5 | 0.9500 | undervoltage |
-| Bus 6 | 0.9500 | undervoltage |
-| Bus 7 | 1.0100 | above nominal |
-| Bus 8 | 1.0100 | above nominal |
-| Bus 9 | 1.0000 | nominal |
+| Bus | Bus 1 | Bus 2 | Bus 3 | Bus 4 | Bus 5 | Bus 6 | Bus 7 | Bus 8 | Bus 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| Voltage (p.u.) | 1.0000 | 1.0400 | 1.0200 | 0.9300 | 0.9500 | 0.9500 | 1.0100 | 1.0100 | 1.0000 |
+| Condition | nominal | overvoltage | above nominal | undervoltage | undervoltage | undervoltage | above nominal | above nominal | nominal |
 
 Without DG the feeder has three undervoltage buses (4, 5 and 6 between 0.93 and 0.95 p.u.) and four buses at or above nominal, with bus 2 at 1.04 p.u. The undervoltage group defines the placement target in the two DG scenarios.
 
