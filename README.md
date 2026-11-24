@@ -122,6 +122,8 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 | Bus 8 | 1.0100 | above nominal |
 | Bus 9 | 1.0000 | nominal |
 
+Without DG the feeder has three undervoltage buses (4, 5 and 6 between 0.93 and 0.95 p.u.) and four buses at or above nominal, with bus 2 at 1.04 p.u. The undervoltage group defines the placement target in the two DG scenarios.
+
 ### Scenario 2, normal load with DG, both pick bus 6
 
 | Algorithm | DG size (kW) | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction |
@@ -130,6 +132,8 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 | SCA | 250 | 5.35 | 2.06 | 85% | 93% |
 | BA | 299 | 30.96 | 11.98 | 11% | 61% |
 
+Both algorithms place DG at bus 6 but size it differently. SCA uses 250 kW and removes 85% of active and 93% of reactive loss, keeping every bus near 1.00 p.u.; BA uses 299 kW and removes 11% and 61%, while pushing some buses slightly above nominal.
+
 ### Scenario 3, load +10% with DG
 
 | Algorithm | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction | Voltage note |
@@ -137,6 +141,8 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 | Base, load +10% | 34.70 | 31.16 | - | - | - |
 | SCA | 30.80 | 11.88 | 11% | 62% | stays within limits |
 | BA | 34.70 | 29.01 | 0% | 6.9% | bus 4 and bus 5 fall to 0.93 and 0.94 p.u. |
+
+With load up 10% SCA holds active loss at 30.80 MW and reactive loss at 11.88 MVAR, 11% and 62% below the loaded base case, and keeps voltage inside limits. BA removes nothing on active power (34.70 MW, 0%) and 6.9% on reactive power, with buses 4 and 5 sagging to 0.93 and 0.94 p.u.
 
 
 ## Requirements
