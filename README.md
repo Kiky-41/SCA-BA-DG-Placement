@@ -54,7 +54,7 @@ Each coordinate moves with either a sine or a cosine term:
 
 $$X_i^{t+1}=
 \begin{cases}
-X_i^{t}+r_1\sin(r_2)\left|r_3X^{\ast}-X_i^{t}\right|, & r_4<0.5,\\
+X_i^{t}+r_1\sin(r_2)\left|r_3X^{\ast}-X_i^{t}\right|, & r_4\lt0.5,\\
 X_i^{t}+r_1\cos(r_2)\left|r_3X^{\ast}-X_i^{t}\right|, & r_4\ge0.5,
 \end{cases}$$
 
