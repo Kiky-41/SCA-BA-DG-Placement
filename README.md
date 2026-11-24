@@ -106,6 +106,17 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 | `dg9bus.xlsx` | (format: see code) |
 
 
+## Results
+
+| Metric | Value |
+|---|---|
+| Active-power loss reduction (SCA) | up to 85% |
+| Reactive-power loss reduction (SCA) | up to 93% |
+| Agents / iterations | 10 / 100 |
+| DG capacity range | 0-500 kW |
+| Validation | ETAP load flow at normal load and 10% load increase |
+
+
 ## Requirements
 
 Python. Python notebooks: `numpy`, `pandas`, `scipy`, `matplotlib` (as imported). MATLAB scripts: R2021a+.
