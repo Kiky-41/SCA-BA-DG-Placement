@@ -104,30 +104,41 @@ Input data is **not included**. Place files in `data/` (notebooks) or next to th
 
 ### Scenario 1, IEEE 9-bus, no DG
 
-| Bus | Bus 1 | Bus 2 | Bus 3 | Bus 4 | Bus 5 | Bus 6 | Bus 7 | Bus 8 | Bus 9 |
-|---|---|---|---|---|---|---|---|---|---|
-| Voltage (p.u.) | 1.0000 | 1.0400 | 1.0200 | 0.9300 | 0.9500 | 0.9500 | 1.0100 | 1.0100 | 1.0000 |
-| Condition | nominal | overvoltage | above nominal | undervoltage | undervoltage | undervoltage | above nominal | above nominal | nominal |
+| Bus | Voltage (p.u.) | Condition |
+|---|---|---|
+| Bus 1 | 1.0000 | nominal |
+| Bus 2 | 1.0400 | overvoltage |
+| Bus 3 | 1.0200 | above nominal |
+| Bus 4 | 0.9300 | undervoltage |
+| Bus 5 | 0.9500 | undervoltage |
+| Bus 6 | 0.9500 | undervoltage |
+| Bus 7 | 1.0100 | above nominal |
+| Bus 8 | 1.0100 | above nominal |
+| Bus 9 | 1.0000 | nominal |
 
 Without DG the feeder has three undervoltage buses (4, 5 and 6 between 0.93 and 0.95 p.u.) and four buses at or above nominal, with bus 2 at 1.04 p.u. The undervoltage group defines the placement target in the two DG scenarios.
 
 ### Scenario 2, normal load with DG, both pick bus 6
 
-| Algorithm | DG size (kW) | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction |
-|---|---|---|---|---|---|
-| Base, no DG | - | 34.70 | 31.16 | - | - |
-| SCA | 250 | 5.35 | 2.06 | 85% | 93% |
-| BA | 299 | 30.96 | 11.98 | 11% | 61% |
+| Measure | Base, no DG | SCA | BA |
+|---|---|---|---|
+| DG size (kW) | - | 250 | 299 |
+| Active loss (MW) | 34.70 | 5.35 | 30.96 |
+| Reactive loss (MVAR) | 31.16 | 2.06 | 11.98 |
+| Active reduction | - | 85% | 11% |
+| Reactive reduction | - | 93% | 61% |
 
 Both algorithms place DG at bus 6 but size it differently. SCA uses 250 kW and removes 85% of active and 93% of reactive loss, keeping every bus near 1.00 p.u.; BA uses 299 kW and removes 11% and 61%, while pushing some buses slightly above nominal.
 
 ### Scenario 3, load +10% with DG
 
-| Algorithm | Active loss (MW) | Reactive loss (MVAR) | Active reduction | Reactive reduction | Voltage note |
-|---|---|---|---|---|---|
-| Base, load +10% | 34.70 | 31.16 | - | - | - |
-| SCA | 30.80 | 11.88 | 11% | 62% | stays within limits |
-| BA | 34.70 | 29.01 | 0% | 6.9% | bus 4 and bus 5 fall to 0.93 and 0.94 p.u. |
+| Measure | Base, load +10% | SCA | BA |
+|---|---|---|---|
+| Active loss (MW) | 34.70 | 30.80 | 34.70 |
+| Reactive loss (MVAR) | 31.16 | 11.88 | 29.01 |
+| Active reduction | - | 11% | 0% |
+| Reactive reduction | - | 62% | 6.9% |
+| Voltage note | - | stays within limits | bus 4 and bus 5 fall to 0.93 and 0.94 p.u. |
 
 With load up 10% SCA holds active loss at 30.80 MW and reactive loss at 11.88 MVAR, 11% and 62% below the loaded base case, and keeps voltage inside limits. BA removes nothing on active power (34.70 MW, 0%) and 6.9% on reactive power, with buses 4 and 5 sagging to 0.93 and 0.94 p.u.
 
